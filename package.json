@@ -1,0 +1,16 @@
+{
+  "name": "core-standards-visualization-experiment",
+  "version": "1.0.0",
+  "description": "An experiment to visually represent Core Standards XML data.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prismacon/core-standards-visualization-experiment.git"
+  },
+  "author": "prismacon <wwhhooaahh@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prismacon/core-standards-visualization-experiment/issues"
+  },
+  "homepage": "https://github.com/prismacon/core-standards-visualization-experiment#readme"
+}
