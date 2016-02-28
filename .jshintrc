@@ -12,6 +12,7 @@
   "shadow": true,
   "eqnull": true,
   "browser": true,
+  "esversion": 6,
   "globals": {
     "console": false,
     "tabris": false,

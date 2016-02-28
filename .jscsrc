@@ -4,6 +4,7 @@
     "allowComments": true,
     "allowRegex": true
   },
+  "esnext": true,
   "validateIndentation": 2,
   "validateLineBreaks": "LF",
   "validateQuoteMarks": { "mark": "\"", "escape": true },
