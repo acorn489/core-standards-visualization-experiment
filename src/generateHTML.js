@@ -2,8 +2,8 @@ import Mustache from "mustache";
 import fs from "fs";
 
 export default function() {
-  var template = loadFile("./template.mustache");
-  var data = loadFile("../resource/data.json");
+  let template = loadFile("./template.mustache");
+  let data = loadFile("../resource/data.json");
   return Mustache.render(template, JSON.parse(data));
 }
 
