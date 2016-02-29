@@ -16,7 +16,6 @@
   "disallowSpaceBeforePostfixUnaryOperators": true,
   "validateParameterSeparator": ", ",
   "requireCurlyBraces": [
-    "if",
     "else",
     "for",
     "while",

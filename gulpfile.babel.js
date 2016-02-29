@@ -1,23 +1,40 @@
+import "babel-polyfill";
 import gulp from "gulp";
 import del from "del";
 import generateHTML from "./src/generateHTML";
+import extractXMLData from "./src/extractXMLData";
 import fs from "fs";
-import gulpLoadPlugins from "gulp-load-plugins";
-let plugins = gulpLoadPlugins();
+import mocha from "gulp-mocha";
+import babel from "babel-core/register";
+import livereload from "gulp-server-livereload";
+import {loadFile} from "./src/helpers";
 
 gulp.task("clean", () => {
   return del(["build"]);
 });
 
-gulp.task("writeHTML", ["clean"], () => {
-  fs.mkdirSync("build");
-  fs.writeFileSync("build/index.html", generateHTML());
-  plugins.livereload.reload();
+gulp.task("test", () => {
+  return gulp.src(["test/**/*.js"])
+    .pipe(mocha({compilers: {js: babel}}));
+});
+
+gulp.task("build", ["clean"], () => {
+  extractXMLData(loadFile("../resource/math.xml"))
+    .then(data => {
+      fs.mkdirSync("build");
+      fs.writeFileSync("build/index.html", generateHTML(data));
+    })
+    .catch(e => console.log(e, e.stack));
 });
 
 gulp.task("watch", () => {
-  plugins.livereload.listen();
-  gulp.watch(["src/**/*.js", "src/**/*.mustache", "resource/**/*.json"], ["writeHTML"]);
+  gulp.watch(
+    ["src/**/*.js", "src/**/*.mustache", "resource/**/*.json", "test/**/*.js"],
+    ["build"]
+  );
 });
 
-gulp.task("default", ["writeHTML", "watch"]);
+gulp.task("default", ["test", "build", "watch"], function() {
+  gulp.src("./build")
+    .pipe(livereload({livereload: true, open: true}));
+});
