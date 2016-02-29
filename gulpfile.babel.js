@@ -22,6 +22,7 @@ gulp.task("build", ["clean"], () => {
   extractXMLData(loadFile("../resource/math.xml"))
     .then(data => {
       fs.mkdirSync("build");
+      fs.writeFileSync("build/data.json", JSON.stringify(data));
       fs.writeFileSync("build/index.html", generateHTML(data));
     })
     .catch(e => console.log(e, e.stack));
