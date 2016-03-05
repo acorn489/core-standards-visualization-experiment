@@ -29,13 +29,13 @@ gulp.task("test", () => {
 });
 
 gulp.task("build", ["clean"], (done) => {
-  extractXMLData(loadFile("../resource/math.xml"))
+  extractXMLData(loadFile("../xml/math.xml"))
     .then(data => {
       let viewData = adaptDataForTemplate(data);
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
       fs.writeFileSync("build/index.html", generateHTML(viewData));
-      gulp.src("./style/**/*.sass")
+      gulp.src("./src/style/**/*.sass")
         .pipe(sass().on("error", sass.logError))
         .pipe(gulp.dest("./build/style"));
       livereload.reload();
@@ -47,7 +47,7 @@ gulp.task("build", ["clean"], (done) => {
 gulp.task("watch", () => {
   livereload.listen();
   gulp.watch(
-    ["src/**/*.js", "src/**/*.handlebars", "resource/**/*.json", "test/**/*.js", "style/**/*.sass"],
+    ["src/**/*.js", "src/**/*.handlebars", "test/**/*.js", "src/**/*.sass"],
     ["build"]
   );
 });

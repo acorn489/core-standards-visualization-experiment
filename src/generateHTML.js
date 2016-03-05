@@ -4,6 +4,6 @@ Handlebars.registerHelper("inc", value => parseInt(value) + 1);
 Handlebars.registerHelper("toUpperCase", value => value.toUpperCase());
 
 export default function(jsonData) {
-  let template = Handlebars.compile(loadFile("./template.handlebars"));
+  let template = Handlebars.compile(loadFile("./template/template.handlebars"));
   return template(jsonData);
 }
