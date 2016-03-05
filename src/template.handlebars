@@ -10,12 +10,20 @@
       <div class="column">
         <div class="headerCell">{{toUpperCase this.0.domain}}</div>
         {{#this}}
-        <div class="cell">{{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}</div>
+        <div class="cell" data-toggle="tooltip" data-placement="bottom" title="<b>{{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}</b><p>{{this.text}}</p>">
+          {{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}
+        </div>
         {{/this}}
       </div>
       {{/cols}}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(function () {
+        $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
+      });
+    </script>
   </body>
 </html>
