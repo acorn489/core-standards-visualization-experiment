@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import * as collector from "../src/rawDataFilter";
+import * as filter from "../src/rawDataFilter";
 
 describe("rawDataFilter", () => {
   describe("filterGrade", () => {
@@ -10,7 +10,7 @@ describe("rawDataFilter", () => {
         {GradeLevels: [{GradeLevel: ["2"]}]}
       ]);
 
-      let collection = collector.filterGrade(data, "k");
+      let collection = filter.filterGrade(data, "k");
 
       expect(collection).to.deep.equal([
         {GradeLevels: [{GradeLevel: ["K"]}]},
@@ -26,7 +26,7 @@ describe("rawDataFilter", () => {
         {StatementCodes: [{StatementCode: ["CCSS.Math.Content.K.CC.A.1"]}]}
       ];
 
-      let collection = collector.filterSkill(grade, "cc", "a", "1");
+      let collection = filter.filterSkill(grade, "cc", "a", "1");
 
       expect(collection).to.deep.equal(
         {StatementCodes: [{StatementCode: ["CCSS.Math.Content.K.CC.A.1"]}]}
@@ -38,7 +38,7 @@ describe("rawDataFilter", () => {
         {StatementCodes: [{StatementCode: ["CCSS.Math.Content.K.CC.A.1b"]}]}
       ];
 
-      let collection = collector.filterSkill(grade, "cc", "a", "1");
+      let collection = filter.filterSkill(grade, "cc", "a", "1");
 
       expect(collection).to.deep.equal(null);
     });

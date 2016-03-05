@@ -4,7 +4,7 @@ import "babel-polyfill";
 export let endsWithLetter = (string = "") => string.match(/[A-Za-z]$/);
 
 export function* gradeRange(n) {
-  for (var i = 1; i <= n; i++) {
+  for (let i = 1; i <= n; i++) {
     yield `0${i.toString()}`.slice(-2);
   }
 }

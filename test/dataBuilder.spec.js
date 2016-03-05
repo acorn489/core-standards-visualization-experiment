@@ -30,17 +30,17 @@ describe("dataBuilder", () => {
       let builtGrade = buildGrade(grade);
 
       expect(builtGrade).to.deep.equal({
-        name: "k",
+        name: "0",
         domains: [{
           name: "bb",
           clusters: [
-            {name: "a", "skills": [{name: "1", text: "foo1"}, {name: "2", text: "foo2"}]},
-            {name: "b", "skills": [{name: "1", text: "foo3"}]}
+            {name: "a", "skills": [{name: 1, text: "foo1"}, {name: 2, text: "foo2"}]},
+            {name: "b", "skills": [{name: 1, text: "foo3"}]}
           ]
         }, {
           name: "cc",
           clusters: [
-            {name: "b", "skills": [{name: "1", text: "foo4"}]}
+            {name: "b", "skills": [{name: 1, text: "foo4"}]}
           ]
         }]
       });

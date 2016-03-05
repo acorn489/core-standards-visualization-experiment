@@ -7,7 +7,7 @@ entries.shim();
 export function buildGrade(rawGrade) {
   let grade = {};
   let hierarchy = extractHierarchy(rawGrade);
-  grade.name = rawGrade[0] && rawGrade[0].GradeLevels[0].GradeLevel[0].toLowerCase();
+  grade.name = getGradeName(rawGrade);
   grade.domains = [];
   for (let [level1Name, hierarchyLevel2] of Object.entries(hierarchy)) {
     let clusters = createClusters(level1Name, hierarchyLevel2);
@@ -34,7 +34,7 @@ export function buildGrade(rawGrade) {
 }
 
 export function buildGrades(rawData, supportedGrades) {
-  var grades = [];
+  let grades = [];
   supportedGrades.forEach(function(gradeName) {
     let rawGrade = filterGrade(rawData, gradeName);
     let grade = buildGrade(rawGrade);
@@ -46,4 +46,11 @@ export function buildGrades(rawData, supportedGrades) {
 function getSkillName(skill) {
   if (!skill) return "";
   return skill.Statements[0].Statement[0];
+}
+
+function getGradeName(rawGrade) {
+  if (rawGrade[0] && rawGrade[0].GradeLevels[0].GradeLevel[0]) {
+    let grade = rawGrade[0].GradeLevels[0].GradeLevel[0].toLowerCase();
+    return grade === "k" ? "0" : parseInt(grade);
+  }
 }

@@ -3,6 +3,7 @@ import gulp from "gulp";
 import del from "del";
 import generateHTML from "./src/generateHTML";
 import extractXMLData from "./src/extractXMLData";
+import adaptDataForTemplate from "./src/adaptDataForTemplate";
 import fs from "fs";
 import mocha from "gulp-mocha";
 import babel from "babel-core/register";
@@ -21,16 +22,17 @@ gulp.task("test", () => {
 gulp.task("build", ["clean"], () => {
   extractXMLData(loadFile("../resource/math.xml"))
     .then(data => {
+      let viewData = adaptDataForTemplate(data);
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
-      fs.writeFileSync("build/index.html", generateHTML(data));
+      fs.writeFileSync("build/index.html", generateHTML(viewData));
     })
     .catch(e => console.log(e, e.stack));
 });
 
 gulp.task("watch", () => {
   gulp.watch(
-    ["src/**/*.js", "src/**/*.mustache", "resource/**/*.json", "test/**/*.js"],
+    ["src/**/*.js", "src/**/*.handlebars", "resource/**/*.json", "test/**/*.js"],
     ["build"]
   );
 });

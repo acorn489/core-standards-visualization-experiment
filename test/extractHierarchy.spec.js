@@ -15,8 +15,18 @@ describe("extractHierarchy", () => {
     let collection = extractHierarchy(grade);
 
     expect(collection).to.deep.equal({
-      bb: {a: ["1", "2"]},
-      cc: {b: ["1", "2"], d: ["1"]}
+      bb: {a: [1, 2]},
+      cc: {b: [1, 2], d: [1]}
     });
+  });
+
+  it("skips practice level", () => {
+    let grade = [
+      {StatementCodes: [{StatementCode: ["FOO.MATH.A.1"]}]}
+    ];
+
+    let collection = extractHierarchy(grade);
+
+    expect(collection).to.deep.equal({});
   });
 });
