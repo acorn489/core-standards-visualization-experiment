@@ -13,6 +13,7 @@
     "url": "https://github.com/prismacon/core-standards-visualization-experiment/issues"
   },
   "scripts": {
+    "start": "gulp",
     "test": "mocha --require babel-core/register"
   },
   "homepage": "https://github.com/prismacon/core-standards-visualization-experiment#readme",
