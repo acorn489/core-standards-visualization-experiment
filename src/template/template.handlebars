@@ -2,8 +2,8 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link rel="stylesheet" href="style/style.css" media="screen">
+    <script src="js/main.js"></script>
   </head>
-
   <body>
     <h1>Math Standards</h1>
     <div class="container-fluid">
@@ -32,29 +32,5 @@
         {{/cols}}
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      $(function () {
-        $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
-        $("[data-toggle='tooltip']").tooltip("disable");
-        $(".kidDeveloperButtons label").click(function() {
-          var _this = this;
-          setTimeout(function() {
-            var value = $(_this).parent().find("input").filter(":checked").attr("value");
-            if (value === "developer") {
-              $("[data-toggle='tooltip']").tooltip("enable");
-              $(".headerCell").show();
-              $(".cell").html(function() {return $(this).attr("data")});
-            } else {
-              $("[data-toggle='tooltip']").tooltip("disable");
-              $(".headerCell").hide();
-              $(".cell").html("o");
-            }
-          });
-        });
-      });
-    </script>
   </body>
 </html>

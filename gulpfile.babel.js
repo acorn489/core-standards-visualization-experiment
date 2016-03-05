@@ -16,6 +16,9 @@ import runSequence from "run-sequence";
 import {loadFile} from "./src/helpers";
 import gutil from "gulp-util";
 import sass from "gulp-sass";
+import babelify from "babelify";
+import browserify from "browserify";
+import source from "vinyl-source-stream";
 
 let SERVER_ADDRESS = "0.0.0.0";
 
@@ -38,6 +41,11 @@ gulp.task("build", ["clean"], (done) => {
       gulp.src("./src/style/**/*.sass")
         .pipe(sass().on("error", sass.logError))
         .pipe(gulp.dest("./build/style"));
+      browserify({entries: "./src/main.js", extensions: [".js"], debug: true})
+       .transform(babelify)
+       .bundle()
+       .pipe(source("js/main.js"))
+       .pipe(gulp.dest("build"));
       livereload.reload();
       done();
     })
