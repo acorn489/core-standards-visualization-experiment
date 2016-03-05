@@ -37,7 +37,7 @@ gulp.task("watch", () => {
   );
 });
 
-gulp.task("default", ["test", "build", "watch"], function() {
+gulp.task("default", ["build", "watch"], function() {
   gulp.src("./build")
     .pipe(livereload({livereload: true, open: true}));
 });
