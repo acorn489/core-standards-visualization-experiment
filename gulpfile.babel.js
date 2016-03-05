@@ -8,6 +8,8 @@ import fs from "fs";
 import mocha from "gulp-mocha";
 import babel from "babel-core/register";
 import livereload from "gulp-server-livereload";
+import http from "http";
+import ecstatic from "ecstatic";
 import {loadFile} from "./src/helpers";
 
 gulp.task("clean", () => {
@@ -37,7 +39,13 @@ gulp.task("watch", () => {
   );
 });
 
-gulp.task("default", ["build", "watch"], function() {
+gulp.task("default", ["build", "watch"], () => {
   gulp.src("./build")
     .pipe(livereload({livereload: true, open: true}));
+});
+
+gulp.task("heroku", ["build"], () => {
+  http.createServer(
+    ecstatic({ root: __dirname + "/build" })
+  ).listen(process.env.PORT || 8080);
 });
