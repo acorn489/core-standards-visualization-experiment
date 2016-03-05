@@ -24,19 +24,15 @@ describe("adaptDataForTemplate", () => {
     let adapted = adapt(data);
 
     expect(adapted).to.deep.equal({
-      domains: ["bb", "cc"],
-      rows: [
+      cols: [
         [
           {name: "1", text: "foo1", cluster: "a", domain: "bb", grade: "0"},
-          {name: "1", text: "foo4", cluster: "b", domain: "cc", grade: "0"}
-        ],
-        [
           {name: "2", text: "foo2", cluster: "a", domain: "bb", grade: "0"},
-          {name: "1", text: "foo5", cluster: "a", domain: "cc", grade: "1"}
+          {name: "1", text: "foo3", cluster: "b", domain: "bb", grade: "0"}
         ],
         [
-          {name: "1", text: "foo3", cluster: "b", domain: "bb", grade: "0"},
-          {domain: "cc"}
+          {name: "1", text: "foo4", cluster: "b", domain: "cc", grade: "0"},
+          {name: "1", text: "foo5", cluster: "a", domain: "cc", grade: "1"}
         ]
       ]
     });

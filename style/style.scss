@@ -1,0 +1,31 @@
+.standardsTable {
+  display: flex;
+  align-items: stretch;
+
+  .column {
+    flex: 1;
+
+    .cell {
+      padding: .75rem;
+      line-height: 1.5;
+      vertical-align: top;
+      border-top: 1px solid #eceeef;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .headerCell {
+      font-weight: bold;
+      padding: .75rem;
+      line-height: 1.5;
+      vertical-align: bottom;
+      border-bottom: 2px solid #eceeef;
+      text-align: center;
+    }
+  }
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}

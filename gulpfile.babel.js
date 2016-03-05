@@ -15,6 +15,7 @@ import ecstatic from "ecstatic";
 import runSequence from "run-sequence";
 import {loadFile} from "./src/helpers";
 import gutil from "gulp-util";
+import sass from "gulp-sass";
 
 let SERVER_ADDRESS = "0.0.0.0";
 
@@ -34,6 +35,9 @@ gulp.task("build", ["clean"], (done) => {
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
       fs.writeFileSync("build/index.html", generateHTML(viewData));
+      gulp.src("./style/**/*.scss")
+        .pipe(sass().on("error", sass.logError))
+        .pipe(gulp.dest("./build/style"));
       livereload.reload();
       done();
     })
@@ -43,7 +47,7 @@ gulp.task("build", ["clean"], (done) => {
 gulp.task("watch", () => {
   livereload.listen();
   gulp.watch(
-    ["src/**/*.js", "src/**/*.handlebars", "resource/**/*.json", "test/**/*.js"],
+    ["src/**/*.js", "src/**/*.handlebars", "resource/**/*.json", "test/**/*.js", "style/**/*.scss"],
     ["build"]
   );
 });
