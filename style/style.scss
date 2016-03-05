@@ -1,3 +1,8 @@
+body {
+  padding-top: 20px;
+  text-align: center;
+}
+
 .standardsTable {
   display: flex;
   align-items: stretch;
@@ -14,7 +19,12 @@
       cursor: pointer;
     }
 
+    .cell:nth-child(2) {
+      border-top: none;
+    }
+
     .headerCell {
+      display: none;
       font-weight: bold;
       padding: .75rem;
       line-height: 1.5;
