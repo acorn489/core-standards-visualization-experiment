@@ -35,7 +35,7 @@ gulp.task("build", ["clean"], (done) => {
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
       fs.writeFileSync("build/index.html", generateHTML(viewData));
-      gulp.src("./style/**/*.scss")
+      gulp.src("./style/**/*.sass")
         .pipe(sass().on("error", sass.logError))
         .pipe(gulp.dest("./build/style"));
       livereload.reload();
@@ -47,7 +47,7 @@ gulp.task("build", ["clean"], (done) => {
 gulp.task("watch", () => {
   livereload.listen();
   gulp.watch(
-    ["src/**/*.js", "src/**/*.handlebars", "resource/**/*.json", "test/**/*.js", "style/**/*.scss"],
+    ["src/**/*.js", "src/**/*.handlebars", "resource/**/*.json", "test/**/*.js", "style/**/*.sass"],
     ["build"]
   );
 });
