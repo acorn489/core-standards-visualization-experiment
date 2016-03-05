@@ -27,14 +27,15 @@
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.0",
     "gulp-mocha": "^2.2.0",
-    "gulp-server-livereload": "^1.7.0",
     "handlebars": "^4.0.5",
     "lodash": "^4.5.1",
     "object.entries": "^1.0.3",
+    "run-sequence": "^1.1.5",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "gulp-livereload": "^3.8.1",
     "mocha": "^2.4.5"
   }
 }
