@@ -3,11 +3,10 @@
 import "babel-polyfill";
 import gulp from "gulp";
 import del from "del";
-import generateHTML from "./src/generateHTML";
 import extractXMLData from "./src/extractXMLData";
-import adaptDataForTemplate from "./src/adaptDataForTemplate";
 import fs from "fs";
 import mocha from "gulp-mocha";
+import uglify from "gulp-uglify";
 import babel from "babel-core/register";
 import livereload from "gulp-livereload";
 import http from "http";
@@ -18,7 +17,9 @@ import gutil from "gulp-util";
 import sass from "gulp-sass";
 import babelify from "babelify";
 import browserify from "browserify";
+import browserifyHandlebars from "browserify-handlebars";
 import source from "vinyl-source-stream";
+import buffer from "vinyl-buffer";
 
 let SERVER_ADDRESS = "0.0.0.0";
 
@@ -31,21 +32,34 @@ gulp.task("test", () => {
     .pipe(mocha({compilers: {js: babel}}));
 });
 
+gulp.task("sass", () => {
+  gulp.src("src/**/*.sass")
+    .pipe(sass().on("error", sass.logError))
+    .pipe(gulp.dest("build/"));
+});
+
+gulp.task("html", () => {
+  gulp.src("src/html/index.html")
+    .pipe(gulp.dest("build/"));
+});
+
+gulp.task("browserify", () => {
+  browserify({entries: "./src/main.js", extensions: [".js"], debug: true})
+   .transform(babelify)
+   .transform(browserifyHandlebars)
+   .bundle()
+   .pipe(source("bundle.js"))
+   .pipe(buffer())
+   .pipe(uglify())
+   .pipe(gulp.dest("build/js"));
+});
+
 gulp.task("build", ["clean"], (done) => {
   extractXMLData(loadFile("../xml/math.xml"))
     .then(data => {
-      let viewData = adaptDataForTemplate(data);
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
-      fs.writeFileSync("build/index.html", generateHTML(viewData));
-      gulp.src("./src/style/**/*.sass")
-        .pipe(sass().on("error", sass.logError))
-        .pipe(gulp.dest("./build/style"));
-      browserify({entries: "./src/main.js", extensions: [".js"], debug: true})
-       .transform(babelify)
-       .bundle()
-       .pipe(source("js/main.js"))
-       .pipe(gulp.dest("build"));
+      runSequence("sass", "html", "browserify");
       livereload.reload();
       done();
     })

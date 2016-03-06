@@ -2,7 +2,7 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link rel="stylesheet" href="style/style.css" media="screen">
-    <script src="js/main.js"></script>
+    <script src="js/bundle.js"></script>
   </head>
   <body>
     <h1>Math Standards</h1>
@@ -16,20 +16,6 @@
         </label>
       </div>
       <div class="standardsTable">
-        {{#cols}}
-        <div class="column">
-          <div class="headerCell">{{toUpperCase this.0.domain}}</div>
-          {{#this}}
-          <div class="cell"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            title="<b>{{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}</b><p>{{this.text}}</p>"
-            data={{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}>
-          o
-          </div>
-          {{/this}}
-        </div>
-        {{/cols}}
       </div>
     </div>
   </body>

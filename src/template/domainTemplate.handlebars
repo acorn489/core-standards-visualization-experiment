@@ -1,0 +1,14 @@
+{{#cols}}
+<div class="column">
+  <div class="headerCell">{{toUpperCase this.0.domain}}</div>
+  {{#this}}
+  <div class="cell"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="<b>{{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}</b><p>{{this.text}}</p>"
+    data={{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}>
+  o
+  </div>
+  {{/this}}
+</div>
+{{/cols}}
