@@ -1,11 +1,9 @@
 import fs from "fs";
 import "babel-polyfill";
 
-export let endsWithLetter = (string = "") => string.match(/[A-Za-z]$/);
-
-export function* gradeRange(n) {
-  for (let i = 1; i <= n; i++) {
-    yield `0${i.toString()}`.slice(-2);
+export function* range(n) {
+  for (let i = 0; i <= n; i++) {
+    yield i;
   }
 }
 

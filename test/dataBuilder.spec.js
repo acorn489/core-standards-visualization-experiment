@@ -1,9 +1,9 @@
 import {expect} from "chai";
-import {buildGrade} from "../src/dataBuilder";
+import {buildSkills} from "../src/dataBuilder";
 
 describe("dataBuilder", () => {
-  describe("buildGrade", () => {
-    it("builds grade", () => {
+  describe("buildSkills", () => {
+    it("maps raw skills", () => {
       let grade = [
         {
           GradeLevels: [{GradeLevel: ["K"]}],
@@ -24,26 +24,23 @@ describe("dataBuilder", () => {
           GradeLevels: [{GradeLevel: ["K"]}],
           StatementCodes: [{StatementCode: ["CCSS.Math.Content.K.CC.B.1"]}],
           Statements: [{Statement: ["foo4"]}]
+        },
+        {
+          GradeLevels: [{GradeLevel: ["1"]}],
+          StatementCodes: [{StatementCode: ["CCSS.Math.Content.1.DD.A.1"]}],
+          Statements: [{Statement: ["foo5"]}]
         }
       ];
 
-      let builtGrade = buildGrade(grade);
+      let domains = buildSkills(grade);
 
-      expect(builtGrade).to.deep.equal({
-        name: "0",
-        domains: [{
-          name: "bb",
-          clusters: [
-            {name: "a", "skills": [{name: 1, text: "foo1"}, {name: 2, text: "foo2"}]},
-            {name: "b", "skills": [{name: 1, text: "foo3"}]}
-          ]
-        }, {
-          name: "cc",
-          clusters: [
-            {name: "b", "skills": [{name: 1, text: "foo4"}]}
-          ]
-        }]
-      });
+      expect(domains).to.deep.equal([
+        {name: 1, text: "foo1", cluster: "a", domain: "bb", grade: 0},
+        {name: 2, text: "foo2", cluster: "a", domain: "bb", grade: 0},
+        {name: 1, text: "foo3", cluster: "b", domain: "bb", grade: 0},
+        {name: 1, text: "foo4", cluster: "b", domain: "cc", grade: 0},
+        {name: 1, text: "foo5", cluster: "a", domain: "dd", grade: 1}
+      ]);
     });
   });
 });

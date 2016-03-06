@@ -1,15 +1,15 @@
 import {Parser} from "xml2js";
-import {gradeRange} from "./helpers";
-import {buildGrades} from "./dataBuilder";
+import {range} from "./helpers";
+import {buildDomains} from "./dataBuilder";
 
-const SUPPORTED_GRADES = ["k", ...gradeRange(5)];
+const SUPPORTED_GRADES = [...range(5)];
 
 export default function(xmlString) {
   let parser = new Parser();
   return new Promise((resolve, reject) => {
     parser.parseString(xmlString, (err, result) => {
       if (err) reject(err);
-      resolve({grades: buildGrades(result, SUPPORTED_GRADES)});
+      resolve({domains: buildDomains(result, SUPPORTED_GRADES)});
     });
   });
 }

@@ -8,15 +8,13 @@ handlebars.registerHelper("toUpperCase", value => value.toUpperCase());
 require("bootstrap");
 let template = require("./template/domainTemplate.handlebars");
 
-import adaptDataForTemplate from "./adaptDataForTemplate";
 import "whatwg-fetch";
 
 $(() => {
   fetch("./data.json")
     .then(data => data.json())
     .then(data => {
-      let adaptedData = adaptDataForTemplate(data);
-      let html = template(adaptedData);
+      let html = template(data);
       $(".standardsTable").html(html);
       $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
       $("[data-toggle='tooltip']").tooltip("disable");
