@@ -33,18 +33,18 @@ gulp.task("test", () => {
 });
 
 gulp.task("sass", () => {
-  gulp.src("src/**/*.sass")
+  gulp.src("src/frontend/**/*.sass")
     .pipe(sass().on("error", sass.logError))
     .pipe(gulp.dest("build/"));
 });
 
 gulp.task("html", () => {
-  gulp.src("src/html/index.html")
+  gulp.src("src/frontend/index.html")
     .pipe(gulp.dest("build/"));
 });
 
 gulp.task("browserify", () => {
-  browserify({entries: "./src/main.js", extensions: [".js"], debug: true})
+  browserify({entries: "./src/frontend/main.js", extensions: [".js"], debug: true})
    .transform(babelify)
    .transform(browserifyHandlebars)
    .bundle()

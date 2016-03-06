@@ -1,4 +1,4 @@
-import adapt from "../src/adaptDataForTemplate";
+import adapt from "../src/frontend/adaptDataForTemplate";
 import {expect} from "chai";
 
 describe("adaptDataForTemplate", () => {

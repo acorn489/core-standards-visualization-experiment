@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import flattenData from "../src/flattenData";
+import flattenData from "../src/frontend/flattenData";
 
 describe("dataFlattener", () => {
   it("flattens data", () => {
