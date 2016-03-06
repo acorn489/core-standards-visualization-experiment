@@ -33,18 +33,18 @@ gulp.task("test", () => {
 });
 
 gulp.task("sass", () => {
-  gulp.src("src/frontend/**/*.sass")
+  return gulp.src("src/frontend/**/*.sass")
     .pipe(sass().on("error", sass.logError))
     .pipe(gulp.dest("build/"));
 });
 
 gulp.task("html", () => {
-  gulp.src("src/frontend/index.html")
+  return gulp.src("src/frontend/index.html")
     .pipe(gulp.dest("build/"));
 });
 
 gulp.task("browserify", () => {
-  browserify({entries: "./src/frontend/main.js", extensions: [".js"], debug: true})
+  return browserify({entries: "./src/frontend/main.js", extensions: [".js"], debug: true})
    .transform(babelify)
    .transform(browserifyHandlebars)
    .bundle()
@@ -59,12 +59,12 @@ gulp.task("build", ["clean"], (done) => {
     .then(data => {
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
-      runSequence("sass", "html", "browserify");
-      livereload.reload();
-      done();
+      runSequence(["sass", "html", "browserify"], "reload", done);
     })
     .catch(e => console.log(e, e.stack));
 });
+
+gulp.task("reload", () => livereload.reload());
 
 gulp.task("watch", () => {
   livereload.listen();
@@ -84,7 +84,7 @@ gulp.task("deploy", () => {
 });
 
 gulp.task("default", () => {
-  runSequence("build", "watch", "deploy");
+  runSequence("build", "deploy", "watch");
 });
 
 gulp.task("heroku", () => {
