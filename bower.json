@@ -1,0 +1,25 @@
+{
+  "name": "core-standards-visualization-experiment",
+  "description": "An experiment to visually represent Core Standards XML data.",
+  "main": "index.js",
+  "authors": [
+    "prismacon <wwhhooaahh@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/prismacon/core-standards-visualization-experiment",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tether": "~1.2.0",
+    "bootstrap": "4.0.0-alpha.2",
+    "es6-promise": "~3.2.1",
+    "fetch": "~0.11.0",
+    "backbone.marionette": "~2.4.4",
+    "backbone": "~1.2.3"
+  }
+}

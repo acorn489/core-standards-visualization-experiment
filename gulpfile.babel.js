@@ -7,6 +7,9 @@ import extractXMLData from "./src/extractXMLData";
 import fs from "fs";
 import mocha from "gulp-mocha";
 import uglify from "gulp-uglify";
+import filter from "gulp-filter";
+import concat from "gulp-concat";
+import mainBowerFiles from "gulp-main-bower-files";
 import babel from "babel-core/register";
 import livereload from "gulp-livereload";
 import http from "http";
@@ -43,14 +46,34 @@ gulp.task("html", () => {
     .pipe(gulp.dest("build/"));
 });
 
+gulp.task("main-bower-files", function() {
+  var filterJS = filter("**/*.js", {restore: true});
+  return gulp.src("./bower.json")
+    .pipe(mainBowerFiles({
+        overrides: {
+          "BOWER-PACKAGE": {
+            main: [
+              "./bower_components/jquery/dist/jquery.min.js",
+              "./bower_components/underscore/underscore-min.js",
+              "./bower_components/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          }
+        }
+      }
+    ))
+    .pipe(filterJS)
+    .pipe(concat("vendor.js"))
+    .pipe(filterJS.restore)
+    .pipe(gulp.dest("build/lib"));
+});
+
 gulp.task("browserify", () => {
   return browserify({entries: "./src/frontend/main.js", extensions: [".js"], debug: true})
    .transform(babelify)
    .transform(browserifyHandlebars)
    .bundle()
-   .pipe(source("bundle.js"))
+   .pipe(source("main.js"))
    .pipe(buffer())
-   .pipe(uglify())
    .pipe(gulp.dest("build/js"));
 });
 
@@ -59,7 +82,7 @@ gulp.task("build", ["clean"], (done) => {
     .then(data => {
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
-      runSequence(["sass", "html", "browserify"], "reload", done);
+      runSequence(["sass", "html", "browserify", "main-bower-files"], "reload", done);
     })
     .catch(e => console.log(e, e.stack));
 });

@@ -1,27 +1,46 @@
-/*globals $:true*/
-window.$ = window.jQuery = require("jquery");
-window.Tether = require("tether");
-
+/*globals $:true, Backbone:true, _:true*/
 var handlebars = require("handlebars/runtime").default;
 handlebars.registerHelper("inc", value => parseInt(value) + 1);
 handlebars.registerHelper("toUpperCase", value => value.toUpperCase());
-require("bootstrap");
-let template = require("./template/domainTemplate.handlebars");
-
-import "whatwg-fetch";
+let domainTemplate = require("./template/domainTemplate.handlebars");
+let skillTemplate = require("./template/skillTemplate.handlebars");
 
 $(() => {
   fetch("./data.json")
     .then(data => data.json())
     .then(data => {
-      let html = template(data);
-      $(".standardsTable").html(html);
+      renderViews(data);
       $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
       $("[data-toggle='tooltip']").tooltip("disable");
       registerRadioClickHandler();
     })
     .catch(e => console.log(e, e.stack));
 });
+
+function renderViews(data) {
+  var SkillView = Backbone.Marionette.ItemView.extend({
+    template: skillTemplate
+  });
+
+  var DomainCompositeView = Backbone.Marionette.CompositeView.extend({
+    template: domainTemplate,
+    childView: SkillView,
+    childViewContainer: ".column",
+    onRender: function() {
+      this.$el = this.$el.children();
+      this.$el.unwrap();
+      this.setElement(this.$el);
+    }
+  });
+
+  _.each(data.domains, function(domain) {
+    let compView = new DomainCompositeView({
+      model: new Backbone.Model({domainName: domain[0].domain}),
+      collection: new Backbone.Collection(domain)
+    });
+    $(".standardsTable").append(compView.render().el);
+  });
+}
 
 function registerRadioClickHandler() {
   $(".kidDeveloperButtons label").click(function() {
