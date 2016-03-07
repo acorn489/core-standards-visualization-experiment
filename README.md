@@ -8,6 +8,5 @@ An experiment to visually represent Core Standards XML data (http://www.corestan
 
 ```
 $ npm install
-$ bower install
 $ npm start
 ```

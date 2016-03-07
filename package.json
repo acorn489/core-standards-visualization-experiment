@@ -14,7 +14,8 @@
   },
   "scripts": {
     "start": "gulp",
-    "test": "mocha --require babel-core/register"
+    "test": "mocha --require babel-core/register",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "homepage": "https://github.com/prismacon/core-standards-visualization-experiment#readme",
   "dependencies": {
@@ -22,6 +23,7 @@
     "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
     "babelify": "^7.2.0",
+    "bower": "^1.7.7",
     "browserify": "^13.0.0",
     "browserify-handlebars": "^1.0.0",
     "del": "^2.2.0",
