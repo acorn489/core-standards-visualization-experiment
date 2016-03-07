@@ -1,5 +1,5 @@
 /*globals $:true, Backbone:true, _:true*/
-var handlebars = require("handlebars/runtime").default;
+let handlebars = require("handlebars/runtime").default;
 handlebars.registerHelper("inc", value => parseInt(value) + 1);
 handlebars.registerHelper("toUpperCase", value => value.toUpperCase());
 let domainTemplate = require("./template/domainTemplate.handlebars");
@@ -18,19 +18,16 @@ $(() => {
 });
 
 function renderViews(data) {
-  var SkillView = Backbone.Marionette.ItemView.extend({
-    template: skillTemplate
+  let SkillView = Backbone.Marionette.ItemView.extend({
+    template: skillTemplate,
+    onRender: unwrapView
   });
 
-  var DomainCompositeView = Backbone.Marionette.CompositeView.extend({
+  let DomainCompositeView = Backbone.Marionette.CompositeView.extend({
     template: domainTemplate,
     childView: SkillView,
     childViewContainer: ".column",
-    onRender: function() {
-      this.$el = this.$el.children();
-      this.$el.unwrap();
-      this.setElement(this.$el);
-    }
+    onRender: unwrapView
   });
 
   _.each(data.domains, function(domain) {
@@ -40,6 +37,12 @@ function renderViews(data) {
     });
     $(".standardsTable").append(compView.render().el);
   });
+}
+
+function unwrapView() {
+  this.$el = this.$el.children();
+  this.$el.unwrap();
+  this.setElement(this.$el);
 }
 
 function registerRadioClickHandler() {
