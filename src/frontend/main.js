@@ -18,30 +18,18 @@ $(() => {
 });
 
 function renderViews(data) {
-  let Skill = Backbone.Model.extend({
-    defaults: {completed: false},
-    markAsCompleted: function() {
-      this.set("completed", true);
-    }
-  });
+  let Skill = Backbone.Model.extend({defaults: {collected: false}});
 
   let SkillCollection = Backbone.Collection.extend({model: Skill});
 
   let SkillView = Backbone.Marionette.ItemView.extend({
     template: skillTemplate,
     onRender: unwrapView,
-    events: {
-      click: "setCompleted"
-    },
-    modelEvents: {
-      "change:completed": "animateCollapse"
-    },
-    animateCollapse: function() {
-      let self = this;
-      this.$el.slideUp(() => self.render());
-    },
-    setCompleted: function() {
-      this.model.set("completed", true);
+    events: {click: "collect"},
+    modelEvents: {"change:collected": "animateSkillCollection"},
+    animateSkillCollection,
+    collect: function() {
+      this.model.set("collected", true);
     }
   });
 
@@ -59,6 +47,21 @@ function renderViews(data) {
     });
     $(".standardsTable").append(compView.render().el);
   });
+}
+
+function animateSkillCollection() {
+  let self = this;
+  var image = this.$el.children("img");
+  this.$el.slideUp(() => self.render());
+  image.css({position: "absolute", top: image.position().top, left: image.position().left});
+  image.animate({
+    top: $(getCollectorId(this.model)).position().top,
+    left: $(getCollectorId(this.model)).position().left
+  });
+}
+
+function getCollectorId(model) {
+  return "#collector_grade-" + model.get("grade");
 }
 
 function unwrapView() {

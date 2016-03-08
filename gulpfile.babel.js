@@ -41,6 +41,11 @@ gulp.task("sass", () => {
     .pipe(gulp.dest("build/"));
 });
 
+gulp.task("image", () => {
+  return gulp.src("src/frontend/**/*.png")
+    .pipe(gulp.dest("build/"));
+});
+
 gulp.task("html", () => {
   return gulp.src("src/frontend/index.html")
     .pipe(gulp.dest("build/"));
@@ -82,7 +87,7 @@ gulp.task("build", ["clean"], (done) => {
     .then(data => {
       fs.mkdirSync("build");
       fs.writeFileSync("build/data.json", JSON.stringify(data));
-      runSequence(["sass", "html", "browserify", "main-bower-files"], "reload", done);
+      runSequence(["sass", "html", "browserify", "main-bower-files", "image"], "reload", done);
     })
     .catch(e => console.log(e, e.stack));
 });
@@ -92,7 +97,7 @@ gulp.task("reload", () => livereload.reload());
 gulp.task("watch", () => {
   livereload.listen();
   gulp.watch(
-    ["src/**/*.js", "src/**/*.handlebars", "test/**/*.js", "src/**/*.sass"],
+    ["src/**/*.js", "src/**/*.handlebars", "test/**/*.js", "src/**/*.sass", "src/**/*.html"],
     ["build"]
   );
 });
