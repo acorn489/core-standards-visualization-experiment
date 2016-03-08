@@ -9,6 +9,9 @@ body
   .column
     flex: 1
 
+    .cell.completed
+      display: none
+
     .cell
       padding: .75rem
       line-height: 1.5
@@ -17,8 +20,8 @@ body
       text-align: center
       cursor: pointer
 
-    .cell:nth-child(2)
-      border-top: none
+      &:last-child
+        border-bottom: 1px solid #eceeef
 
     .headerCell
       display: none

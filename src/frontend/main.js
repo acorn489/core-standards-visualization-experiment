@@ -18,9 +18,31 @@ $(() => {
 });
 
 function renderViews(data) {
+  let Skill = Backbone.Model.extend({
+    defaults: {completed: false},
+    markAsCompleted: function() {
+      this.set("completed", true);
+    }
+  });
+
+  let SkillCollection = Backbone.Collection.extend({model: Skill});
+
   let SkillView = Backbone.Marionette.ItemView.extend({
     template: skillTemplate,
-    onRender: unwrapView
+    onRender: unwrapView,
+    events: {
+      click: "setCompleted"
+    },
+    modelEvents: {
+      "change:completed": "animateCollapse"
+    },
+    animateCollapse: function() {
+      let self = this;
+      this.$el.slideUp(() => self.render());
+    },
+    setCompleted: function() {
+      this.model.set("completed", true);
+    }
   });
 
   let DomainCompositeView = Backbone.Marionette.CompositeView.extend({
@@ -33,7 +55,7 @@ function renderViews(data) {
   _.each(data.domains, function(domain) {
     let compView = new DomainCompositeView({
       model: new Backbone.Model({domainName: domain[0].domain}),
-      collection: new Backbone.Collection(domain)
+      collection: new SkillCollection(domain)
     });
     $(".standardsTable").append(compView.render().el);
   });
@@ -53,11 +75,11 @@ function registerRadioClickHandler() {
       if (value === "developer") {
         $("[data-toggle='tooltip']").tooltip("enable");
         $(".headerCell").show();
-        $(".cell").html(function() {return $(this).attr("data");});
+        $(".cell").html(function() {return $(this).attr("devData");});
       } else {
         $("[data-toggle='tooltip']").tooltip("disable");
         $(".headerCell").hide();
-        $(".cell").html("o");
+        $(".cell").html(function() {return $(this).attr("studentData");});
       }
     });
   });

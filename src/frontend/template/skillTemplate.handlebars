@@ -1,7 +1,8 @@
-<div class="cell"
+<div class="cell{{#if this.completed}} completed{{/if}}"
   data-toggle="tooltip"
   data-placement="bottom"
   title="<b>{{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}</b><p>{{this.text}}</p>"
-  data={{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}>
-o
+  devData={{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}
+  studentData="o">
+  o
 </div>
