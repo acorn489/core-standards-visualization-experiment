@@ -15,6 +15,43 @@ $(() => {
       registerRadioClickHandler();
     })
     .catch(e => console.log(e, e.stack));
+
+    $(".standardsTable").on('click', '.cell', function() {
+      var grade = $(this).attr('class').split(' ');
+      var collector = '#collector_' + grade[1];
+      $(this).slideUp();
+
+      var image = $(this).children('img');
+
+      var startTop = image.position().top;
+      var startLeft = image.position().left;
+
+      image.css('position', 'absolute');
+
+      image.css('top', startTop);
+      image.css('left', startLeft);
+
+      image.animate({
+          top: $(collector).position().top,
+          left: $(collector).position().left,
+        },
+        {
+          complete: function() { 
+          //   $('#collectedStars').animate({
+          //     width: '120px',
+          //     height: '120px'
+          //   }, 100,
+          // {
+          //   complete: function () {
+          //     $('#collectedStars').animate({
+          //       width: '100px',
+          //       height: '100px'
+          //     }, 100);
+          //   }
+          // });
+          }
+        });
+    });
 });
 
 function renderViews(data) {
