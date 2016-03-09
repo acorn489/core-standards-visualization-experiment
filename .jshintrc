@@ -6,7 +6,7 @@
   "latedef": "nofunc",
   "newcap": true,
   "noarg": true,
-  "nonew": true,
+  "nonew": false,
   "undef": true,
   "unused": true,
   "shadow": true,
