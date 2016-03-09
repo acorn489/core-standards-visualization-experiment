@@ -3,13 +3,19 @@ let handlebars = require("handlebars/runtime").default;
 handlebars.registerHelper("inc", value => parseInt(value) + 1);
 handlebars.registerHelper("toUpperCase", value => value.toUpperCase());
 import DomainsCollectionView from "./view/DomainsCollectionView";
+import GradesCollectionView from "./view/GradesCollectionView";
+import GradeCollection from "./model/GradeCollection";
+import DomainsModel from "./model/DomainsModel";
 
 $(() => {
-  new DomainsCollectionView()
+  let domainsModel = new DomainsModel();
+  domainsModel.fetch();
+  new DomainsCollectionView({model: domainsModel})
     .on("render", () => {
       $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
       $("[data-toggle='tooltip']").tooltip("disable");
     });
+  new GradesCollectionView({collection: new GradeCollection({domainsModel})});
   registerRadioClickHandler();
 });
 

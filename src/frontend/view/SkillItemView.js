@@ -3,7 +3,7 @@
 import skillTemplate from "../template/skillTemplate.handlebars";
 import unwrapView from "./unwrapView";
 
-let SkillView = Backbone.Marionette.ItemView.extend({
+let SkillItemView = Backbone.Marionette.ItemView.extend({
   template: skillTemplate,
   onRender: unwrapView,
   events: {click: "collect"},
@@ -18,15 +18,18 @@ function animateSkillCollection() {
   let self = this;
   var image = this.$el.children("img");
   this.$el.slideUp(() => self.render());
-  image.css({position: "absolute", top: image.position().top, left: image.position().left});
-  image.animate({
-    top: $(getCollectorId(this.model)).position().top,
-    left: $(getCollectorId(this.model)).position().left
-  });
+  this.$el.tooltip("hide");
+  if (image && image.position()) {
+    image.css({position: "absolute", top: image.position().top, left: image.position().left});
+    image.animate({
+      top: $(getGradeId(this.model)).position().top,
+      left: $(getGradeId(this.model)).position().left
+    });
+  }
 }
 
-function getCollectorId(model) {
-  return "#collector_grade-" + model.get("grade");
+function getGradeId(model) {
+  return "#grade-" + model.get("grade");
 }
 
-export default SkillView;
+export default SkillItemView;
