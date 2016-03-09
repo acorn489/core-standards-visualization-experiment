@@ -5,9 +5,11 @@ handlebars.registerHelper("toUpperCase", value => value.toUpperCase());
 import DomainsCollectionView from "./view/DomainsCollectionView";
 
 $(() => {
-  new DomainsCollectionView();
-  $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
-  $("[data-toggle='tooltip']").tooltip("disable");
+  new DomainsCollectionView()
+    .on("render", () => {
+      $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
+      $("[data-toggle='tooltip']").tooltip("disable");
+    });
   registerRadioClickHandler();
 });
 
