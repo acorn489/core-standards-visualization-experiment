@@ -1,8 +1,8 @@
-<div class="cell{{#if this.collected}} collected{{/if}}"
+<div class="cell{{#if this.collected}} collected{{/if}}{{#if this.completed}} completed{{/if}}"
   data-toggle="tooltip"
   data-placement="bottom"
   title="<b>{{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}</b><p>{{this.text}}</p>"
   devData={{this.grade}}.{{toUpperCase this.domain}}.{{toUpperCase this.cluster}}.{{this.name}}
-  studentData='<img src="./img/grade-{{this.grade}}.png" alt="" />'>
-  <img src="./img/grade-{{this.grade}}.png" alt="" />
+  studentData='<img src="./img/grade-{{this.grade}}{{#if this.completed}}_completed{{/if}}.png" alt="" />'>
+  <img src="./img/grade-{{this.grade}}{{#if this.completed}}_completed{{/if}}.png" alt="" />
 </div>

@@ -6,15 +6,23 @@ let gradesVent = Backbone.Wreqr.radio.channel("grades").vent;
 
 let SkillItemView = Backbone.Marionette.ItemView.extend({
   template: skillTemplate,
-  onRender: unwrapView,
+  onRender: function() {
+    unwrapView.call(this);
+    this.wiggle();
+  },
   events: {click: "updateModel"},
   modelEvents: {
     "change:collected": "animateSkillCollection",
-    "change:completed": "animateSkillCompletion"
+    "change:completed": "render"
   },
   animateSkillCollection,
-  animateSkillCompletion,
+  wiggle: function() {
+    $(".completed img").ClassyWiggle();
+  },
   updateModel: function() {
+    if (this.$el.hasClass("developer")) {
+      return;
+    }
     if (!this.model.get("completed")) {
       this.model.set("completed", true);
     } else {
@@ -22,13 +30,6 @@ let SkillItemView = Backbone.Marionette.ItemView.extend({
     }
   }
 });
-
-function animateSkillCompletion() {
-  var image = this.$el.children("img");
-  var image_complete = "/img/grade-" + this.model.get("grade") + "_complete.png";
-  image.attr("src", image_complete);
-  image.ClassyWiggle();
-}
 
 function animateSkillCollection() {
   let self = this;

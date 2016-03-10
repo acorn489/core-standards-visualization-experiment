@@ -25,13 +25,20 @@ function registerRadioClickHandler() {
     setTimeout(function() {
       let value = $(_this).parent().find("input").filter(":checked").attr("value");
       if (value === "developer") {
+        $("[data-toggle='tooltip']").tooltip({html: true, delay: 500});
         $("[data-toggle='tooltip']").tooltip("enable");
         $(".headerCell").show();
         $(".cell").html(function() {return $(this).attr("devData");});
+        $(".cell").addClass("developer");
       } else {
         $("[data-toggle='tooltip']").tooltip("disable");
         $(".headerCell").hide();
-        $(".cell").html(function() {return $(this).attr("studentData");});
+        $(".cell").html(function() {
+          return $(this).attr("studentData");
+        });
+        $(".cell").removeClass("developer");
+        $(".completed img").ClassyWiggle();
+        // TODO: use Marionette regions instead
       }
     });
   });
