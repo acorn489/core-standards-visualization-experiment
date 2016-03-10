@@ -1,4 +1,4 @@
-/*globals $:true*/
+/*globals $:false*/
 let handlebars = require("handlebars/runtime").default;
 handlebars.registerHelper("inc", value => parseInt(value) + 1);
 handlebars.registerHelper("toUpperCase", value => value.toUpperCase());

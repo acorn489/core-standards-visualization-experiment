@@ -2,6 +2,7 @@
 
 import skillTemplate from "../template/skillTemplate.handlebars";
 import unwrapView from "./unwrapView";
+let gradesVent = Backbone.Wreqr.radio.channel("grades").vent;
 
 let SkillItemView = Backbone.Marionette.ItemView.extend({
   template: skillTemplate,
@@ -13,10 +14,10 @@ let SkillItemView = Backbone.Marionette.ItemView.extend({
   },
   animateSkillCollection,
   animateSkillCompletion,
-  updateModel: function () {
-    if(!this.model.get('completed')){
+  updateModel: function() {
+    if (!this.model.get("completed")) {
       this.model.set("completed", true);
-    }else {
+    } else {
       this.model.set("collected", true);
     }
   }
@@ -24,9 +25,9 @@ let SkillItemView = Backbone.Marionette.ItemView.extend({
 
 function animateSkillCompletion() {
   var image = this.$el.children("img");
-  var image_complete = '/img/grade-'+this.model.get("grade")+'_complete.png';
-  image.attr('src', image_complete);
-  image.ClassyWiggle(); 
+  var image_complete = "/img/grade-" + this.model.get("grade") + "_complete.png";
+  image.attr("src", image_complete);
+  image.ClassyWiggle();
 }
 
 function animateSkillCollection() {
@@ -35,12 +36,14 @@ function animateSkillCollection() {
   this.$el.slideUp(() => self.render());
   this.$el.tooltip("hide");
   if (image && image.position()) {
+    gradesVent.trigger("collectionAnimationStart");
     image.css({position: "absolute", top: image.position().top, left: image.position().left});
     image.animate({
-      top: $(getGradeId(this.model)).position().top,
-      left: $(getGradeId(this.model)).position().left
-    },function complete() {
-      $(getGradeId(self.model)).ClassyWiggle('start', {limit: 1});
+      top: $(getGradeId(self.model)).position().top,
+      left: $(getGradeId(self.model)).position().left
+    }, function() {
+      gradesVent.trigger("collectionAnimationEnd");
+      $(getGradeId(self.model)).ClassyWiggle("start", {limit: 2});
     });
   }
 }
