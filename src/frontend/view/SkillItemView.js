@@ -24,7 +24,9 @@ let SkillItemView = Backbone.Marionette.ItemView.extend({
 
 function animateSkillCompletion() {
   var image = this.$el.children("img");
-  image.ClassyWiggle();
+  var image_complete = '/img/grade-'+this.model.get("grade")+'_complete.png';
+  image.attr('src', image_complete);
+  image.ClassyWiggle(); 
 }
 
 function animateSkillCollection() {
