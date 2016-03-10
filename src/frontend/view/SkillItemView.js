@@ -37,6 +37,8 @@ function animateSkillCollection() {
     image.animate({
       top: $(getGradeId(this.model)).position().top,
       left: $(getGradeId(this.model)).position().left
+    },function complete() {
+      $(getGradeId(self.model)).ClassyWiggle('start', {limit: 1});
     });
   }
 }
