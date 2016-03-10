@@ -55,17 +55,10 @@ gulp.task("main-bower-files", function() {
   var filterJS = filter("**/*.js", {restore: true});
   return gulp.src("./bower.json")
     .pipe(mainBowerFiles({
-        overrides: {
-          "BOWER-PACKAGE": {
-            main: [
-              "./bower_components/jquery/dist/jquery.min.js",
-              "./bower_components/underscore/underscore-min.js",
-              "./bower_components/bootstrap/dist/js/bootstrap.min.js"
-            ]
-          }
-        }
+      overrides: {
+        "jquery-classywiggle": {main: ["./src/js/jquery.classywiggle.js"]}
       }
-    ))
+    }))
     .pipe(filterJS)
     .pipe(concat("vendor.js"))
     .pipe(filterJS.restore)

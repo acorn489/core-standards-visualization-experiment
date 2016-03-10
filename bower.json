@@ -20,6 +20,7 @@
     "es6-promise": "~3.2.1",
     "fetch": "~0.11.0",
     "backbone.marionette": "~2.4.4",
-    "backbone": "~1.2.3"
+    "backbone": "~1.2.3",
+    "jquery-classywiggle": "*"
   }
 }

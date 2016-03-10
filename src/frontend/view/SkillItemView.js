@@ -6,13 +6,26 @@ import unwrapView from "./unwrapView";
 let SkillItemView = Backbone.Marionette.ItemView.extend({
   template: skillTemplate,
   onRender: unwrapView,
-  events: {click: "collect"},
-  modelEvents: {"change:collected": "animateSkillCollection"},
+  events: {click: "updateModel"},
+  modelEvents: {
+    "change:collected": "animateSkillCollection",
+    "change:completed": "animateSkillCompletion"
+  },
   animateSkillCollection,
-  collect: function() {
-    this.model.set("collected", true);
+  animateSkillCompletion,
+  updateModel: function () {
+    if(!this.model.get('completed')){
+      this.model.set("completed", true);
+    }else {
+      this.model.set("collected", true);
+    }
   }
 });
+
+function animateSkillCompletion() {
+  var image = this.$el.children("img");
+  image.ClassyWiggle();
+}
 
 function animateSkillCollection() {
   let self = this;
