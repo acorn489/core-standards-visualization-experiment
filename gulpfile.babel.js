@@ -90,7 +90,7 @@ gulp.task("reload", () => livereload.reload());
 gulp.task("watch", () => {
   livereload.listen();
   gulp.watch(
-    ["src/**/*.js", "src/**/*.handlebars", "test/**/*.js", "src/**/*.sass", "src/**/*.html"],
+    ["src/**/*.js", "src/**/*.handlebars", "test/**/*.js", "src/**/*.sass", "src/**/*.html", "src/**/*.png"],
     ["build"]
   );
 });
